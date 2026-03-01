@@ -1,4 +1,4 @@
-// VERSION: 3.1.0
+// VERSION: 3.1.1
 // DODO Learning — Student Baseline Report PDF Generator
 // Generates standardized 4-page PDF via jsPDF + html2canvas
 //
@@ -98,7 +98,7 @@ const COMMENT_POOL = {
     4: "Writing is grammatically accurate. Most errors are small and the child is beginning to catch them on their own. 写作语法准确。大多数错误都很细微，且孩子已经开始尝试自我纠正。",
     5: "Grammar is intuitive. Your child can use complex punctuation to enhance the reader's experience, going beyond basic rules. 语法已内化为直觉。孩子能利用复杂标点提升阅读体验，超越了基础规则的束缚。",
   },
-  organisation: {
+  organization: {
     0: "We did not evaluate the student in this area.",
     1: "Your child's writing is a list of events. We are teaching them how to group related ideas into paragraphs. 孩子的写作目前类似于事件列表。我们正教导他们如何将相关想法归纳进段落中。",
     2: "They can write a beginning, middle, and end with some help. We are working on making these parts feel connected. 在帮助下能写出起承转合。我们正努力让文章的各个部分连接得更加紧密。",
@@ -153,7 +153,7 @@ const PILLARS = [
     skills: [
       { id: "sentences", label: "Sentence Structure", labelZh: "句子结构" },
       { id: "grammar", label: "Grammar & Mechanics", labelZh: "语法与写作规范" },
-      { id: "organisation", label: "Writing Organisation", labelZh: "写作组织" },
+      { id: "organization", label: "Writing Organization", labelZh: "写作组织" },
       { id: "creative", label: "Creative Expression", labelZh: "创意表达" },
     ],
   },
@@ -327,6 +327,7 @@ const PW = 794;
 const PH = 1123;
 const PAD = 30;
 const SKILL_ROW_H = 82; // Fixed row height for skill rows
+const GAP_H = 73; // Spacer height — matches header visual height
 
 function PDFHeader({ info }) {
   return (
@@ -455,6 +456,9 @@ function PDFPage1({ info, ratings, comments }) {
           </div>
         </div>
 
+        {/* Gap — same height as header */}
+        <div style={{ height: GAP_H, flexShrink: 0 }} />
+
         {/* Literacy Table */}
         <div style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
           <PillarTable pillar={PILLARS[0]} ratings={ratings} comments={comments} />
@@ -512,6 +516,9 @@ function PDFPage3({ info, ratings, proficientGrade, studentLexile }) {
           </div>
         </div>
 
+        {/* Gap — after consultation overview */}
+        <div style={{ height: GAP_H }} />
+
         {/* Summary */}
         <div style={{ fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: B.brown, fontWeight: 700, marginBottom: 8 }}>Summary · 各核心领域总结</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, marginBottom: 14 }}>
@@ -539,6 +546,9 @@ function PDFPage3({ info, ratings, proficientGrade, studentLexile }) {
           })}
         </div>
 
+        {/* Gap — after summary */}
+        <div style={{ height: GAP_H }} />
+
         {/* Literacy Curriculum */}
         <CurriculumSection item={CURRICULUM[0]} proficientGrade={proficientGrade} />
       </div>
@@ -551,9 +561,13 @@ function PDFPage4({ info, proficientGrade, notes }) {
   return (
     <div id="pdf-p4" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden" }}>
       <PDFHeader info={info} />
-      <div style={{ padding: `14px ${PAD}px ${PAD}px`, display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ padding: `14px ${PAD}px ${PAD}px`, display: "flex", flexDirection: "column", gap: 0 }}>
         <CurriculumSection item={CURRICULUM[1]} proficientGrade={proficientGrade} />
+        {/* Gap — after Oral Proficiency & Fluency */}
+        <div style={{ height: GAP_H }} />
         <CurriculumSection item={CURRICULUM[2]} proficientGrade={proficientGrade} />
+        {/* Gap — after Writing & Composition */}
+        <div style={{ height: GAP_H }} />
 
         {/* Evaluator Notes */}
         {notes && (
@@ -583,6 +597,7 @@ export default function DodoEvalPDF() {
   const [proficientGrade, setProficientGrade] = useState("");
   const [studentLexile, setStudentLexile] = useState("");
   const [generating, setGenerating] = useState(false);
+  const [fontsReady, setFontsReady] = useState(false);
   const [status, setStatus] = useState("");
 
   useEffect(() => {
@@ -590,6 +605,7 @@ export default function DodoEvalPDF() {
     link.rel = "stylesheet";
     link.href = "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&display=swap";
     document.head.appendChild(link);
+    document.fonts.ready.then(() => setFontsReady(true));
   }, []);
 
   const setRating = useCallback((skillId, val) => {
@@ -609,7 +625,9 @@ export default function DodoEvalPDF() {
     setGenerating(true);
     setStatus("Rendering report…");
     try {
-      await new Promise(r => setTimeout(r, 600));
+      setStatus("Waiting for fonts…");
+      await document.fonts.ready;
+      await new Promise(r => setTimeout(r, 100)); // brief settle after fonts
 
       const capture = async (id) => {
         const el = document.getElementById(id);
@@ -771,15 +789,15 @@ export default function DodoEvalPDF() {
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <button
             onClick={generatePDF}
-            disabled={generating}
+            disabled={generating || !fontsReady}
             style={{
               padding: "14px 36px", background: generating ? B.muted : B.brown, color: B.cream,
               border: "none", borderRadius: 10, fontSize: 16, fontWeight: 700, fontFamily: "inherit",
               cursor: generating ? "wait" : "pointer", boxShadow: "0 3px 12px rgba(0,0,0,0.2)",
-              transition: "all 0.2s",
+              opacity: fontsReady ? 1 : 0.5, transition: "all 0.2s",
             }}
           >
-            {generating ? "⏳ Generating…" : "📄 Generate PDF Report"}
+            {!fontsReady ? "Loading fonts…" : generating ? "⏳ Generating…" : "📄 Generate PDF Report"}
           </button>
           {status && <span style={{ fontSize: 13, color: status.startsWith("✓") ? B.green : status.startsWith("Error") ? "#c0504d" : B.muted }}>{status}</span>}
         </div>
