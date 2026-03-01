@@ -1,10 +1,8 @@
-// DODO Learning — Student Baseline Report PDF Generator v3.0
-// Generates standardized PDF using jsPDF + html2canvas
-// Works identically across all modern browsers
+// VERSION: 3.1.0
+// DODO Learning — Student Baseline Report PDF Generator
+// Generates standardized 4-page PDF via jsPDF + html2canvas
 //
-// INSTALL DEPENDENCIES:
-//   npm install jspdf html2canvas
-//
+// DEPENDENCIES: npm install jspdf html2canvas
 
 import { useState, useCallback, useEffect } from "react";
 import { jsPDF } from "jspdf";
@@ -69,7 +67,7 @@ const COMMENT_POOL = {
     5: "Pronunciation is near-effortless. They have mastered the subtle musicality and linking of sounds found in natural speech. 发音几乎不费力。孩子掌握了自然口语中微妙的韵律感和连读技巧。",
   },
   conversational: {
-    0: "We did not evaluate the student in this area.",
+    0: "We did not evaluate the student in this area. 尚未对此项能力进行评估。",
     1: "Your child can respond to simple questions but extended conversations are challenging. We're building that foundation. 孩子目前能应对简单提问，但在展开长对话时略显吃力。我们正在着手夯实这方面的基础。",
     2: "Your child can hold a short conversation on familiar topics. They're developing strategies to keep dialogue going. 孩子能够围绕熟悉的话题进行简短交流，并正在学习如何运用策略来维持对话。",
     3: "Your child converses well on known topics and is learning to manage unexpected turns in conversation. 在已知话题下表现良好，目前正处于学习如何应对对话中突发转向的阶段。",
@@ -77,7 +75,7 @@ const COMMENT_POOL = {
     5: "Your child is a fluent, spontaneous conversationalist — natural, adaptive, and a joy to speak with. 表达极具自发性且流利。沟通风格灵活多变，是一位非常有感染力的交流者。",
   },
   listening: {
-    0: "We did not evaluate the student in this area.",
+    0: "We did not evaluate the student in this area. 尚未对此项能力进行评估。",
     1: "Your child is learning to tune in to spoken English. Listening to English stories and videos daily makes a big difference. 孩子正在学习如何进入英语语境。建议每日坚持接触英语故事和视频，这对建立语感至关重要。",
     2: "Your child understands simple instructions and familiar topics. Comprehension drops with complex or fast speech. 能够理解简单的指令和熟悉的主题。面对复杂或语速较快的表达时，理解力仍有波动。",
     3: "Your child follows most classroom-level English well. Nuance and idiom are the next areas to develop. 能够跟上大部分课堂英语。接下来的进阶重点是理解语言中的细微差别和地道表达。",
@@ -170,7 +168,7 @@ const BAND_12 = {
   ],
   oral: [
     { name: "Expressing Basic Needs", nameZh: "基础需求表达", desc: "引导孩子学会用清晰的短语或简单句表达学校生活中的基本需求。这是建立安全感和融入集体生活的关键第一步。" },
-    { name: "Phonemic Awareness & Rhythm", nameZh: "语音意识与节奏", desc: "通过儿歌、韵律诗和单词拆解，训练孩子对英语独特节奏和发音位置的感知。这能有效预防早期发音习惯偏差。" },
+    { name: "Phonemic Awareness", nameZh: "语音意识与节奏", desc: "通过儿歌、韵律诗和单词拆解，训练孩子对英语独特节奏和发音位置的感知。这能有效预防早期发音习惯偏差。" },
     { name: "Basic Social Interaction", nameZh: "初级社交礼仪", desc: "教授基础的问候、感谢及简单的排队或分享用语。孩子将学习在社交场合中如何开启一段简单的对话。" },
   ],
   writing: [
@@ -187,7 +185,7 @@ const BAND_34 = {
   ],
   oral: [
     { name: "Descriptive Storytelling", nameZh: "生动记叙", desc: "鼓励学生按照逻辑顺序描述一件趣事或讲述一个简单的故事。通过加入细节描写，学生能学会如何吸引听众的注意力。" },
-    { name: "Conversational Turn-taking", nameZh: "对话往返技巧", desc: "训练学生在对话中不仅要表达自己，更要学会倾听并根据对方的内容给出合理回应。掌握交替发言的节奏能让沟通变得更加自然。" },
+    { name: "Turn-taking", nameZh: "对话往返技巧", desc: "训练学生在对话中不仅要表达自己，更要学会倾听并根据对方的内容给出合理回应。掌握交替发言的节奏能让沟通变得更加自然。" },
     { name: "Questioning Strategies", nameZh: "提问与求证", desc: "引导学生学会有目的地提出问题，以获取更多信息或澄清疑惑。这种主动探究的能力在课堂讨论中至关重要。" },
   ],
   writing: [
@@ -239,7 +237,7 @@ const BAND_910 = {
   oral: [
     { name: "Socratic Seminar", nameZh: "苏格拉底式研讨", desc: "训练学生在复杂的学术研讨中进行即兴输出，能够根据多方观点实时调整自己的论据。" },
     { name: "Rhetorical Strategies", nameZh: "演讲修辞策略", desc: "引导学生在发言中有意识地运用排比、比喻和情感呼吁来增强感染力。" },
-    { name: "Synthesizing Oral Evidence", nameZh: "多重观点综合", desc: "挑战学生在口头表达中同时引用并分析多个来源的信息，构建复杂的论证体系。" },
+    { name: "Synthesizing Evidence", nameZh: "多重观点综合", desc: "挑战学生在口头表达中同时引用并分析多个来源的信息，构建复杂的论证体系。" },
   ],
   writing: [
     { name: "Argumentative Logic", nameZh: "论证逻辑", desc: "深入学习如何构建严密的论证链条，包括反驳对立观点的技巧。学生将学会用逻辑而非情绪来支撑立场。" },
@@ -318,24 +316,31 @@ const GRADE_LEXILE = [
   { grade: "Grade 11", lexile: "1300+" }, { grade: "Grade 12", lexile: "1350+" },
 ];
 
-// ─── PDF REPORT TEMPLATE (hidden, captured by html2canvas) ──────────────
-const F = '"Noto Sans SC", "Avenir Next", "Avenir", "Helvetica Neue", sans-serif';
-const PW = 794; // A4 at ~96dpi
-const PAD = 32;
 
-function ReportHeader({ info }) {
+// ═══════════════════════════════════════════════════════════════════════
+// PDF TEMPLATE COMPONENTS (hidden off-screen, captured by html2canvas)
+// ═══════════════════════════════════════════════════════════════════════
+
+const F = '"Noto Sans SC", "Avenir Next", "Avenir", "Helvetica Neue", sans-serif';
+// A4 at 96dpi = 794 x 1123px. We render at this size, html2canvas captures at 2x.
+const PW = 794;
+const PH = 1123;
+const PAD = 30;
+const SKILL_ROW_H = 82; // Fixed row height for skill rows
+
+function PDFHeader({ info }) {
   return (
-    <div style={{ background: B.cream, padding: `${PAD}px ${PAD}px 16px`, borderBottom: `3px solid ${B.green}` }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-        <img src={LOGO_B64} alt="DODO" style={{ height: 44, width: "auto" }} />
-        <div style={{ borderLeft: `1.5px solid rgba(122,81,69,0.25)`, paddingLeft: 16 }}>
-          <div style={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", opacity: 0.65, fontFamily: F, fontWeight: 500 }}>DODO Learning · 都学学习</div>
-          <div style={{ fontSize: 17, fontWeight: 700, fontFamily: F, marginTop: 2 }}>
+    <div style={{ background: B.cream, padding: `18px ${PAD}px 12px`, borderBottom: `3px solid ${B.green}` }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        <img src={LOGO_B64} alt="DODO" style={{ height: 40, width: "auto" }} />
+        <div style={{ borderLeft: `1.5px solid rgba(122,81,69,0.25)`, paddingLeft: 14 }}>
+          <div style={{ fontSize: 10, letterSpacing: 3, textTransform: "uppercase", opacity: 0.65, fontFamily: F, fontWeight: 500 }}>DODO Learning · 都学学习</div>
+          <div style={{ fontSize: 16, fontWeight: 700, fontFamily: F, marginTop: 1 }}>
             Student Baseline Report
-            <span style={{ fontSize: 12, fontWeight: 400, opacity: 0.72, marginLeft: 8 }}>学生评估报告</span>
+            <span style={{ fontSize: 11, fontWeight: 400, opacity: 0.72, marginLeft: 8 }}>学生评估报告</span>
           </div>
         </div>
-        <div style={{ marginLeft: "auto", textAlign: "right", fontSize: 11, fontFamily: F, color: B.muted }}>
+        <div style={{ marginLeft: "auto", textAlign: "right", fontSize: 10, fontFamily: F, color: B.muted }}>
           {info.phase && <div>{info.phase}</div>}
           <div>{info.date}</div>
         </div>
@@ -344,128 +349,187 @@ function ReportHeader({ info }) {
   );
 }
 
-function ReportPage1({ info, ratings, comments }) {
-  const allSkills = PILLARS.flatMap(p => p.skills);
-  const ratedCount = Object.keys(ratings).filter(k => ratings[k] != null).length;
+function PillarTable({ pillar, ratings, comments }) {
   return (
-    <div id="pdf-page1" style={{ width: PW, background: B.cream, fontFamily: F, color: B.ink }}>
-      <ReportHeader info={info} />
-      <div style={{ padding: `16px ${PAD}px ${PAD}px` }}>
-        {/* Student Info */}
-        <div style={{ background: B.white, borderRadius: 10, padding: 14, marginBottom: 14, border: `1px solid ${B.border}` }}>
-          <div style={{ marginBottom: 8, paddingBottom: 6, borderBottom: `1px solid ${B.border}` }}>
-            <span style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: B.brown, fontWeight: 700 }}>Student Information </span>
-            <span style={{ fontSize: 11, color: B.muted }}>学生信息</span>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8 }}>
-            {[["Student Name 学生姓名", info.name], ["Age 年龄", info.age], ["Grade / Year 年级", info.grade],
-              ["Evaluator 评估师", info.evaluator], ["Assessment Phase 评估阶段", info.phase], ["Date 评估日期", info.date]].map(([lbl, val]) => (
-              <div key={lbl}>
-                <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: B.muted, fontWeight: 700, marginBottom: 4 }}>{lbl}</div>
-                <div style={{ fontSize: 13, fontWeight: 600, color: B.ink, minHeight: 18 }}>{val || "—"}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Pillar Tables */}
-        {PILLARS.map(pillar => (
-          <div key={pillar.id} style={{ background: B.white, borderRadius: 8, marginBottom: 12, overflow: "hidden", border: `1px solid ${B.border}` }}>
-            <div style={{ background: pillar.color, color: B.cream, padding: "7px 14px" }}>
-              <div style={{ fontSize: 8, letterSpacing: 2, textTransform: "uppercase", opacity: 0.6, marginBottom: 1 }}>Pillar · 核心领域</div>
-              <div style={{ fontSize: 13, fontWeight: 700 }}>{pillar.label}</div>
-              <div style={{ fontSize: 10, opacity: 0.8 }}>{pillar.labelZh}</div>
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "140px 130px 1fr", background: pillar.lightColor, borderBottom: `2px solid ${B.border}` }}>
-              {[["Skill Area", "技能领域"], ["Rating", "评估等级"], ["What this means for your child", "这对您的孩子意味着什么"]].map(([en, zh]) => (
-                <div key={en} style={{ padding: "5px 10px" }}>
-                  <div style={{ fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: pillar.color, fontWeight: 700 }}>{en}</div>
-                  <div style={{ fontSize: 9, color: B.muted, marginTop: 1 }}>{zh}</div>
-                </div>
-              ))}
-            </div>
-            {pillar.skills.map((skill, idx) => {
-              const r = ratings[skill.id];
-              const rc = r != null ? RATING_COLORS[r] : null;
-              return (
-                <div key={skill.id} style={{ display: "grid", gridTemplateColumns: "140px 130px 1fr", borderBottom: idx < pillar.skills.length - 1 ? `1px solid ${B.border}` : "none", alignItems: "start" }}>
-                  <div style={{ padding: "7px 10px", borderRight: `1px solid ${B.border}` }}>
-                    <div style={{ fontSize: 11, fontWeight: 600 }}>{skill.label}</div>
-                    <div style={{ fontSize: 9, color: B.muted, marginTop: 1 }}>{skill.labelZh}</div>
-                  </div>
-                  <div style={{ padding: "7px 10px", borderRight: `1px solid ${B.border}` }}>
-                    {r != null ? (
-                      <div style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "3px 10px", background: rc.bg, borderRadius: 12 }}>
-                        <div style={{ width: 7, height: 7, borderRadius: "50%", background: rc.dot }} />
-                        <span style={{ fontSize: 11, color: rc.text, fontWeight: 700 }}>{r} – {RATING_LABELS[r]}</span>
-                      </div>
-                    ) : <span style={{ fontSize: 11, color: B.border }}>—</span>}
-                  </div>
-                  <div style={{ padding: "7px 10px" }}>
-                    <div style={{ fontSize: 10, lineHeight: 1.55, color: B.ink, whiteSpace: "pre-wrap" }}>{comments[skill.id] || ""}</div>
-                  </div>
-                </div>
-              );
-            })}
+    <div style={{ background: B.white, borderRadius: 8, overflow: "hidden", border: `1px solid ${B.border}` }}>
+      <div style={{ background: pillar.color, color: B.cream, padding: "6px 14px" }}>
+        <div style={{ fontSize: 8, letterSpacing: 2, textTransform: "uppercase", opacity: 0.6, marginBottom: 1 }}>Pillar · 核心领域</div>
+        <div style={{ fontSize: 13, fontWeight: 700 }}>{pillar.label}</div>
+        <div style={{ fontSize: 10, opacity: 0.8 }}>{pillar.labelZh}</div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "140px 140px 1fr", background: pillar.lightColor, borderBottom: `2px solid ${B.border}` }}>
+        {[["Skill Area", "技能领域"], ["Assessment Rating", "评估等级"], ["What this means for your child", "这对您的孩子意味着什么"]].map(([en, zh]) => (
+          <div key={en} style={{ padding: "4px 10px" }}>
+            <div style={{ fontSize: 9, letterSpacing: 1, textTransform: "uppercase", color: pillar.color, fontWeight: 700 }}>{en}</div>
+            <div style={{ fontSize: 8, color: B.muted, marginTop: 1 }}>{zh}</div>
           </div>
         ))}
+      </div>
+      {pillar.skills.map((skill, idx) => {
+        const r = ratings[skill.id];
+        const rc = (r !== undefined && r !== null) ? RATING_COLORS[r] : null;
+        return (
+          <div key={skill.id} style={{
+            display: "grid", gridTemplateColumns: "140px 140px 1fr",
+            borderBottom: idx < pillar.skills.length - 1 ? `1px solid ${B.border}` : "none",
+            alignItems: "stretch", minHeight: SKILL_ROW_H, height: SKILL_ROW_H,
+          }}>
+            <div style={{ padding: "6px 10px", borderRight: `1px solid ${B.border}`, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <div style={{ fontSize: 11, fontWeight: 600 }}>{skill.label}</div>
+              <div style={{ fontSize: 9, color: B.muted, marginTop: 1 }}>{skill.labelZh}</div>
+            </div>
+            <div style={{ padding: "6px 10px", borderRight: `1px solid ${B.border}`, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              {(r !== undefined && r !== null) ? (
+                <div style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "3px 10px", background: rc.bg, borderRadius: 12, alignSelf: "flex-start" }}>
+                  <div style={{ width: 7, height: 7, borderRadius: "50%", background: rc.dot, flexShrink: 0 }} />
+                  <span style={{ fontSize: 11, color: rc.text, fontWeight: 700, whiteSpace: "nowrap" }}>{r} – {RATING_LABELS[r]}</span>
+                </div>
+              ) : <span style={{ fontSize: 11, color: B.border }}>—</span>}
+            </div>
+            <div style={{ padding: "6px 10px", display: "flex", alignItems: "center", overflow: "hidden" }}>
+              <div style={{ fontSize: 9.5, lineHeight: 1.5, color: B.ink }}>{comments[skill.id] || ""}</div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
-        <div style={{ background: B.brown, borderRadius: 8, padding: "8px 14px", color: B.cream, textAlign: "center" }}>
-          <div style={{ fontSize: 11 }}>{ratedCount} of {allSkills.length} skills rated · 已评估 {ratedCount}/{allSkills.length} 项</div>
+function CurriculumSection({ item, proficientGrade }) {
+  return (
+    <div style={{ background: B.white, borderRadius: 8, overflow: "hidden", border: `1px solid ${B.border}` }}>
+      <div style={{ background: item.color, color: B.cream, padding: "6px 14px" }}>
+        <div style={{ fontSize: 8, letterSpacing: 2, textTransform: "uppercase", opacity: 0.6, marginBottom: 1 }}>Pillar · 核心领域</div>
+        <div style={{ fontSize: 12, fontWeight: 700 }}>{item.pillar}</div>
+        <div style={{ fontSize: 10, opacity: 0.72, marginTop: 1 }}>{item.pillarZh}</div>
+      </div>
+      <div style={{ padding: "8px 14px" }}>
+        <p style={{ margin: "0 0 6px", lineHeight: 1.5, fontSize: 10, color: B.ink, fontFamily: F }}>{item.match}</p>
+        <div style={{ fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: item.color, fontWeight: 700, marginBottom: 6, fontFamily: F }}>
+          Recommended Modules · 推荐课程模块
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 6 }}>
+          {(proficientGrade && GRADE_MODULES[proficientGrade]?.[PILLAR_GRADE_KEY[item.pillar]]?.length
+            ? GRADE_MODULES[proficientGrade][PILLAR_GRADE_KEY[item.pillar]]
+            : item.modules
+          ).map(mod => (
+            <div key={mod.name} style={{ background: item.lightColor, border: `1px solid ${B.border}`, borderRadius: 6, padding: 8 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: item.color }}>{mod.name}</div>
+              <div style={{ fontSize: 10, color: B.muted, marginBottom: 4, marginTop: 2 }}>{mod.nameZh}</div>
+              <div style={{ fontSize: 9, color: B.ink, lineHeight: 1.55 }}>{mod.desc}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-function ReportPage2({ info, ratings, proficientGrade, studentLexile, notes }) {
+// ═══════════════════════════════════════════════════════════════════════
+// 4 PDF PAGE TEMPLATES
+// ═══════════════════════════════════════════════════════════════════════
+
+// PAGE 1: Header + Student Info + Literacy
+function PDFPage1({ info, ratings, comments }) {
+  const allSkills = PILLARS.flatMap(p => p.skills);
+  const ratedCount = Object.keys(ratings).filter(k => ratings[k] !== undefined && ratings[k] !== null).length;
+  return (
+    <div id="pdf-p1" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden" }}>
+      <PDFHeader info={info} />
+      <div style={{ padding: `14px ${PAD}px ${PAD}px`, display: "flex", flexDirection: "column", height: PH - 85 }}>
+        {/* Student Info — takes up available space with flex-grow */}
+        <div style={{ background: B.white, borderRadius: 8, padding: "16px 16px 20px", marginBottom: 14, border: `1px solid ${B.border}`, flexShrink: 0 }}>
+          <div style={{ marginBottom: 10, paddingBottom: 6, borderBottom: `1px solid ${B.border}` }}>
+            <span style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: B.brown, fontWeight: 700 }}>Student Information </span>
+            <span style={{ fontSize: 11, color: B.muted }}>学生信息</span>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12, rowGap: 16 }}>
+            {[["Student Name 学生姓名", info.name], ["Age 年龄", info.age], ["Grade / Year 年级", info.grade],
+              ["Evaluator 评估师", info.evaluator], ["Assessment Phase 评估阶段", info.phase], ["Date 评估日期", info.date]].map(([lbl, val]) => (
+              <div key={lbl}>
+                <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: B.muted, fontWeight: 700, marginBottom: 5 }}>{lbl}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: B.ink, minHeight: 20, borderBottom: `1.5px solid ${B.border}`, paddingBottom: 4 }}>{val || "—"}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Literacy Table */}
+        <div style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+          <PillarTable pillar={PILLARS[0]} ratings={ratings} comments={comments} />
+          <div style={{ background: B.brown, borderRadius: 6, padding: "6px 14px", color: B.cream, textAlign: "center", marginTop: 10 }}>
+            <div style={{ fontSize: 10 }}>{ratedCount} of {allSkills.length} skills rated · 已评估 {ratedCount}/{allSkills.length} 项</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// PAGE 2: Header + Oral + Writing
+function PDFPage2({ info, ratings, comments }) {
+  return (
+    <div id="pdf-p2" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden" }}>
+      <PDFHeader info={info} />
+      <div style={{ padding: `14px ${PAD}px ${PAD}px`, display: "flex", flexDirection: "column", gap: 14 }}>
+        <PillarTable pillar={PILLARS[1]} ratings={ratings} comments={comments} />
+        <PillarTable pillar={PILLARS[2]} ratings={ratings} comments={comments} />
+      </div>
+    </div>
+  );
+}
+
+// PAGE 3: Header + Consultation Overview + Summary + Literacy Curriculum
+function PDFPage3({ info, ratings, proficientGrade, studentLexile }) {
   const selectedGradeObj = GRADE_LEXILE.find(g => g.grade === proficientGrade);
   return (
-    <div id="pdf-page2" style={{ width: PW, background: B.cream, fontFamily: F, color: B.ink }}>
-      <ReportHeader info={info} />
-      <div style={{ padding: `16px ${PAD}px ${PAD}px` }}>
-        <div style={{ textAlign: "center", marginBottom: 14 }}>
-          <div style={{ fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: B.muted, marginBottom: 6 }}>Consultation Overview · 咨询概述</div>
-          <div style={{ fontSize: 19, fontWeight: 700, color: B.brown, fontFamily: F }}>
+    <div id="pdf-p3" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden" }}>
+      <PDFHeader info={info} />
+      <div style={{ padding: `14px ${PAD}px ${PAD}px`, display: "flex", flexDirection: "column" }}>
+        {/* Consultation Title */}
+        <div style={{ textAlign: "center", marginBottom: 12 }}>
+          <div style={{ fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: B.muted, marginBottom: 5 }}>Consultation Overview · 咨询概述</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: B.brown, fontFamily: F }}>
             「<span style={{ color: B.green }}>{info.name || "学生"}</span>」的个人化英语需求
           </div>
-          <div style={{ marginTop: 4, color: B.muted, fontSize: 11, lineHeight: 1.5 }}>
+          <div style={{ marginTop: 4, color: B.muted, fontSize: 10, lineHeight: 1.5 }}>
             第一页的每一项评估结果，都直接对应DODO Learning的具体课程模块。以下将详细说明我们为您的孩子推荐的学习方向及长期的益处。
           </div>
         </div>
 
-        {/* Lexile Info */}
+        {/* Lexile Boxes — taller to fill space */}
         <div style={{ display: "flex", gap: 12, justifyContent: "center", marginBottom: 14 }}>
-          <div style={{ background: B.greenLight, border: `1.5px solid ${B.border}`, borderRadius: 10, padding: "8px 18px", textAlign: "center", minWidth: 140 }}>
-            <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: B.green, marginBottom: 4, fontWeight: 700 }}>Proficient Lexile Level</div>
-            <div style={{ fontSize: 16, fontWeight: 800, color: B.green }}>{selectedGradeObj ? `Lexile ${selectedGradeObj.lexile}` : "—"}</div>
-            {selectedGradeObj && <div style={{ fontSize: 11, color: B.green, fontWeight: 700, marginTop: 2 }}>{selectedGradeObj.grade}</div>}
+          <div style={{ background: B.greenLight, border: `1.5px solid ${B.border}`, borderRadius: 10, padding: "14px 22px", textAlign: "center", minWidth: 160 }}>
+            <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: B.green, marginBottom: 6, fontWeight: 700 }}>Proficient Lexile Level</div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: B.green }}>{selectedGradeObj ? `Lexile ${selectedGradeObj.lexile}` : "—"}</div>
+            {selectedGradeObj && <div style={{ fontSize: 12, color: B.green, fontWeight: 700, marginTop: 4 }}>{selectedGradeObj.grade}</div>}
           </div>
-          <div style={{ background: B.brownLight, border: `1.5px solid ${B.border}`, borderRadius: 10, padding: "8px 18px", textAlign: "center", minWidth: 140 }}>
-            <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: B.brown, marginBottom: 4, fontWeight: 700 }}>Student Lexile Level</div>
-            <div style={{ fontSize: 16, fontWeight: 800, color: B.brown }}>{studentLexile || "—"}</div>
-            <div style={{ fontSize: 11, color: B.brown, fontWeight: 700, marginTop: 2 }}>Current level</div>
+          <div style={{ background: B.brownLight, border: `1.5px solid ${B.border}`, borderRadius: 10, padding: "14px 22px", textAlign: "center", minWidth: 160 }}>
+            <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: B.brown, marginBottom: 6, fontWeight: 700 }}>Student Lexile Level</div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: B.brown }}>{studentLexile || "—"}</div>
+            <div style={{ fontSize: 12, color: B.brown, fontWeight: 700, marginTop: 4 }}>Current level</div>
           </div>
         </div>
 
-        {/* Summary Boxes */}
+        {/* Summary */}
         <div style={{ fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: B.brown, fontWeight: 700, marginBottom: 8 }}>Summary · 各核心领域总结</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, marginBottom: 14 }}>
           {PILLARS.map(pillar => {
-            const scored = pillar.skills.filter(s => ratings[s.id] != null && ratings[s.id] > 0);
+            const scored = pillar.skills.filter(s => ratings[s.id] !== undefined && ratings[s.id] !== null && ratings[s.id] > 0);
             const avg = scored.length > 0 ? scored.reduce((a, s) => a + ratings[s.id], 0) / scored.length : 0;
             const rounded = scored.length > 0 ? Math.round(avg) : null;
-            const rc = rounded ? RATING_COLORS[rounded] : { bg: "#f0ece8", text: B.muted };
+            const rc = rounded ? RATING_COLORS[rounded] : null;
             return (
               <div key={pillar.id} style={{ borderRadius: 10, overflow: "hidden", border: `1px solid ${B.border}` }}>
                 <div style={{ background: B.green, color: B.cream, padding: "6px 10px", textAlign: "center" }}>
                   <div style={{ fontSize: 12, fontWeight: 700 }}>{pillar.label}</div>
                   <div style={{ fontSize: 10, opacity: 0.72, marginTop: 1 }}>{pillar.labelZh}</div>
                 </div>
-                <div style={{ background: B.greenLight, padding: "5px 10px", textAlign: "center" }}>
-                  <div style={{ fontSize: 9, color: B.muted, marginBottom: 4, textTransform: "uppercase", letterSpacing: 1 }}>平均等级</div>
+                <div style={{ background: B.greenLight, padding: "8px 10px", textAlign: "center" }}>
+                  <div style={{ fontSize: 9, color: B.muted, marginBottom: 5, textTransform: "uppercase", letterSpacing: 1 }}>平均等级</div>
                   {rounded ? (
-                    <div style={{ display: "inline-block", padding: "3px 12px", background: rc.bg, color: rc.text, borderRadius: 16, fontSize: 12, fontWeight: 700 }}>
+                    <div style={{ display: "inline-block", padding: "4px 14px", background: rc.bg, color: rc.text, borderRadius: 16, fontSize: 12, fontWeight: 700 }}>
                       {rounded} – {RATING_LABELS[rounded]}
                     </div>
                   ) : <div style={{ color: B.border, fontSize: 12 }}>暂未评估</div>}
@@ -475,43 +539,30 @@ function ReportPage2({ info, ratings, proficientGrade, studentLexile, notes }) {
           })}
         </div>
 
-        {/* Curriculum Sections */}
-        {CURRICULUM.map(item => (
-          <div key={item.pillar} style={{ background: B.white, borderRadius: 8, marginBottom: 10, overflow: "hidden", border: `1px solid ${B.border}` }}>
-            <div style={{ background: item.color, color: B.cream, padding: "6px 14px" }}>
-              <div style={{ fontSize: 8, letterSpacing: 2, textTransform: "uppercase", opacity: 0.6, marginBottom: 1 }}>Pillar · 核心领域</div>
-              <div style={{ fontSize: 12, fontWeight: 700 }}>{item.pillar}</div>
-              <div style={{ fontSize: 10, opacity: 0.72, marginTop: 1 }}>{item.pillarZh}</div>
-            </div>
-            <div style={{ padding: "8px 14px" }}>
-              <p style={{ margin: "0 0 6px", lineHeight: 1.5, fontSize: 10, color: B.ink }}>{item.match}</p>
-              <div style={{ fontSize: 9, letterSpacing: 2, textTransform: "uppercase", color: item.color, fontWeight: 700, marginBottom: 6 }}>
-                Recommended Modules · 推荐课程模块
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 6 }}>
-                {(proficientGrade && GRADE_MODULES[proficientGrade]?.[PILLAR_GRADE_KEY[item.pillar]]?.length
-                  ? GRADE_MODULES[proficientGrade][PILLAR_GRADE_KEY[item.pillar]]
-                  : item.modules
-                ).map(mod => (
-                  <div key={mod.name} style={{ background: item.lightColor, border: `1px solid ${B.border}`, borderRadius: 6, padding: 8 }}>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: item.color }}>{mod.name}</div>
-                    <div style={{ fontSize: 10, color: B.muted, marginBottom: 4, marginTop: 2 }}>{mod.nameZh}</div>
-                    <div style={{ fontSize: 9, color: B.ink, lineHeight: 1.55 }}>{mod.desc}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
+        {/* Literacy Curriculum */}
+        <CurriculumSection item={CURRICULUM[0]} proficientGrade={proficientGrade} />
+      </div>
+    </div>
+  );
+}
+
+// PAGE 4: Header + Oral Curriculum + Writing Curriculum + Notes
+function PDFPage4({ info, proficientGrade, notes }) {
+  return (
+    <div id="pdf-p4" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden" }}>
+      <PDFHeader info={info} />
+      <div style={{ padding: `14px ${PAD}px ${PAD}px`, display: "flex", flexDirection: "column", gap: 12 }}>
+        <CurriculumSection item={CURRICULUM[1]} proficientGrade={proficientGrade} />
+        <CurriculumSection item={CURRICULUM[2]} proficientGrade={proficientGrade} />
 
         {/* Evaluator Notes */}
         {notes && (
           <div style={{ background: B.white, borderRadius: 8, padding: 14, border: `1px solid ${B.border}` }}>
-            <div style={{ marginBottom: 8 }}>
-              <span style={{ fontSize: 13, fontWeight: 700, color: B.brown }}>Evaluator's Notes </span>
-              <span style={{ fontSize: 12, color: B.muted }}>评估师备注</span>
+            <div style={{ marginBottom: 6 }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: B.brown }}>Evaluator's Notes </span>
+              <span style={{ fontSize: 11, color: B.muted }}>评估师备注</span>
             </div>
-            <div style={{ fontSize: 12, lineHeight: 1.7, color: B.ink, whiteSpace: "pre-wrap" }}>{notes}</div>
+            <div style={{ fontSize: 11, lineHeight: 1.7, color: B.ink, whiteSpace: "pre-wrap" }}>{notes}</div>
           </div>
         )}
       </div>
@@ -519,7 +570,11 @@ function ReportPage2({ info, ratings, proficientGrade, studentLexile, notes }) {
   );
 }
 
-// ─── MAIN COMPONENT ─────────────────────────────────────────────────────
+
+// ═══════════════════════════════════════════════════════════════════════
+// MAIN COMPONENT — INPUT FORM + PDF GENERATION
+// ═══════════════════════════════════════════════════════════════════════
+
 export default function DodoEvalPDF() {
   const [info, setInfo] = useState({ name: "", age: "", grade: "", date: new Date().toISOString().split("T")[0], evaluator: "", phase: "" });
   const [ratings, setRatings] = useState({});
@@ -530,7 +585,6 @@ export default function DodoEvalPDF() {
   const [generating, setGenerating] = useState(false);
   const [status, setStatus] = useState("");
 
-  // Load CJK font
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -550,61 +604,35 @@ export default function DodoEvalPDF() {
     if (COMMENT_POOL[skillId]?.[n]) setComments(c => ({ ...c, [skillId]: COMMENT_POOL[skillId][n] }));
   }, []);
 
-  // ─── PDF GENERATION ───────────────────────────────────────────────────
+  // ─── PDF GENERATION ─────────────────────────────────────────────────
   const generatePDF = async () => {
     setGenerating(true);
-    setStatus("Rendering report...");
-
+    setStatus("Rendering report…");
     try {
-      await new Promise(r => setTimeout(r, 500)); // let fonts settle
+      await new Promise(r => setTimeout(r, 600));
 
-      const captureEl = async (id) => {
+      const capture = async (id) => {
         const el = document.getElementById(id);
-        if (!el) throw new Error(`Element #${id} not found`);
-        return html2canvas(el, {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: B.cream,
-          logging: false,
-        });
+        if (!el) throw new Error(`#${id} not found`);
+        return html2canvas(el, { scale: 2, useCORS: true, backgroundColor: B.cream, logging: false });
       };
-
-      setStatus("Capturing page 1...");
-      const canvas1 = await captureEl("pdf-page1");
-      setStatus("Capturing page 2...");
-      const canvas2 = await captureEl("pdf-page2");
 
       const pdf = new jsPDF("p", "mm", "a4");
-      const pageW = 210;
-      const pageH = 297;
+      const pageW = 210, pageH = 297;
 
-      const addCanvasPages = (canvas, isFirst) => {
+      const pages = ["pdf-p1", "pdf-p2", "pdf-p3", "pdf-p4"];
+      for (let i = 0; i < pages.length; i++) {
+        setStatus(`Capturing page ${i + 1} of 4…`);
+        const canvas = await capture(pages[i]);
+        if (i > 0) pdf.addPage();
         const imgW = pageW;
         const imgH = (canvas.height * imgW) / canvas.width;
-        const pxPerPage = (pageH / imgW) * canvas.width;
-        const totalPages = Math.ceil(canvas.height / pxPerPage);
-
-        for (let p = 0; p < totalPages; p++) {
-          if (!(isFirst && p === 0)) pdf.addPage();
-          const sliceY = p * pxPerPage;
-          const sliceH = Math.min(pxPerPage, canvas.height - sliceY);
-          const sliceCanvas = document.createElement("canvas");
-          sliceCanvas.width = canvas.width;
-          sliceCanvas.height = sliceH;
-          const ctx = sliceCanvas.getContext("2d");
-          ctx.drawImage(canvas, 0, sliceY, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
-          const sliceImgH = (sliceH * imgW) / canvas.width;
-          pdf.addImage(sliceCanvas.toDataURL("image/jpeg", 0.92), "JPEG", 0, 0, imgW, sliceImgH);
-        }
-      };
-
-      setStatus("Building PDF...");
-      addCanvasPages(canvas1, true);
-      addCanvasPages(canvas2, false);
+        pdf.addImage(canvas.toDataURL("image/jpeg", 0.92), "JPEG", 0, 0, imgW, Math.min(imgH, pageH));
+      }
 
       const fileName = `DodoEval_${(info.name || "Student").replace(/\s+/g, "_")}_${info.date}.pdf`;
       pdf.save(fileName);
-      setStatus(`✓ PDF saved: ${fileName}`);
+      setStatus(`✓ Saved: ${fileName}`);
     } catch (err) {
       console.error(err);
       setStatus(`Error: ${err.message}`);
@@ -613,15 +641,15 @@ export default function DodoEvalPDF() {
     }
   };
 
-  // ─── FORM STYLES ──────────────────────────────────────────────────────
+  // ─── FORM STYLES ────────────────────────────────────────────────────
   const inp = { width: "100%", padding: "8px 10px", border: `1.5px solid ${B.border}`, borderRadius: 6, fontSize: 14, fontFamily: "inherit", background: B.white, color: B.ink, outline: "none", boxSizing: "border-box" };
-  const lbl = { fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: B.muted, fontWeight: 700, marginBottom: 4 };
+  const lbl = { fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: B.muted, fontWeight: 700, marginBottom: 4, display: "block" };
 
   return (
     <div style={{ fontFamily: '"Noto Sans SC", "Avenir Next", sans-serif', minHeight: "100vh", background: "#f0ece8" }}>
-      {/* ════ FORM UI ════ */}
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px 80px" }}>
-        {/* Header */}
+
+        {/* Form Header */}
         <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 24, paddingBottom: 16, borderBottom: `2px solid ${B.green}` }}>
           <img src={LOGO_B64} alt="DODO" style={{ height: 40 }} />
           <div>
@@ -654,7 +682,7 @@ export default function DodoEvalPDF() {
           </div>
         </div>
 
-        {/* Skill Ratings */}
+        {/* Skill Ratings — ALL LEFT ALIGNED */}
         {PILLARS.map(pillar => (
           <div key={pillar.id} style={{ background: B.white, borderRadius: 10, marginBottom: 16, overflow: "hidden", border: `1px solid ${B.border}` }}>
             <div style={{ background: pillar.color, color: B.cream, padding: "10px 18px" }}>
@@ -662,43 +690,41 @@ export default function DodoEvalPDF() {
               <div style={{ fontSize: 11, opacity: 0.8 }}>{pillar.labelZh}</div>
             </div>
             <div style={{ padding: 14 }}>
-              {pillar.skills.map(skill => {
+              {pillar.skills.map((skill, idx) => {
                 const r = ratings[skill.id];
-                const rc = r != null ? RATING_COLORS[r] : null;
+                const rc = (r !== undefined && r !== null) ? RATING_COLORS[r] : null;
                 return (
-                  <div key={skill.id} style={{ marginBottom: 14, paddingBottom: 14, borderBottom: `1px solid ${B.border}` }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
+                  <div key={skill.id} style={{ marginBottom: idx < pillar.skills.length - 1 ? 14 : 0, paddingBottom: idx < pillar.skills.length - 1 ? 14 : 0, borderBottom: idx < pillar.skills.length - 1 ? `1px solid ${B.border}` : "none" }}>
+                    <div style={{ display: "flex", alignItems: "flex-start", gap: 12, marginBottom: 8 }}>
                       <div style={{ flex: 1 }}>
                         <div style={{ fontSize: 13, fontWeight: 600 }}>{skill.label}</div>
                         <div style={{ fontSize: 11, color: B.muted }}>{skill.labelZh}</div>
                       </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                        <select
-                          value={r != null ? r : ""}
-                          onChange={e => setRating(skill.id, e.target.value)}
-                          style={{
-                            ...inp, width: 150, textAlign: "center", fontWeight: 700, cursor: "pointer",
-                            background: rc ? rc.bg : B.white, color: rc ? rc.text : B.muted,
-                            border: `2px solid ${rc ? rc.dot : B.border}`,
-                          }}
-                        >
-                          <option value="">— Rate 0-5 —</option>
-                          {[0, 1, 2, 3, 4, 5].map(n => <option key={n} value={n}>{n} – {RATING_LABELS[n]}</option>)}
-                        </select>
-                      </div>
+                      <select
+                        value={r !== undefined && r !== null ? r : ""}
+                        onChange={e => setRating(skill.id, e.target.value)}
+                        style={{
+                          ...inp, width: 180, fontWeight: 700, cursor: "pointer", textAlign: "left",
+                          background: rc ? rc.bg : B.white, color: rc ? rc.text : B.muted,
+                          border: `2px solid ${rc ? rc.dot : B.border}`,
+                        }}
+                      >
+                        <option value="">— Rate 0-5 —</option>
+                        {[0, 1, 2, 3, 4, 5].map(n => <option key={n} value={n}>{n} – {RATING_LABELS[n]}</option>)}
+                      </select>
                     </div>
                     <textarea
                       value={comments[skill.id] || ""}
                       onChange={e => setComments(c => ({ ...c, [skill.id]: e.target.value }))}
                       placeholder="Select a rating to auto-fill, or type a custom comment…"
                       rows={3}
-                      style={{ ...inp, resize: "vertical", lineHeight: 1.6, fontSize: 13, background: B.cream }}
+                      style={{ ...inp, resize: "vertical", lineHeight: 1.6, fontSize: 13, background: B.cream, textAlign: "left" }}
                     />
-                    {r != null && COMMENT_POOL[skill.id] && (
+                    {(r !== undefined && r !== null) && COMMENT_POOL[skill.id] && (
                       <select
                         defaultValue=""
                         onChange={e => { if (e.target.value) { setComments(c => ({ ...c, [skill.id]: e.target.value })); e.target.selectedIndex = 0; } }}
-                        style={{ ...inp, marginTop: 6, fontSize: 12, color: B.muted, cursor: "pointer" }}
+                        style={{ ...inp, marginTop: 6, fontSize: 12, color: B.muted, cursor: "pointer", textAlign: "left" }}
                       >
                         <option value="">↻ Swap comment from pool…</option>
                         {Object.entries(COMMENT_POOL[skill.id]).map(([lvl, text]) => (
@@ -759,10 +785,12 @@ export default function DodoEvalPDF() {
         </div>
       </div>
 
-      {/* ════ HIDDEN REPORT TEMPLATES (captured by html2canvas) ════ */}
-      <div style={{ position: "fixed", left: -10000, top: 0, zIndex: -1, opacity: 1, pointerEvents: "none" }}>
-        <ReportPage1 info={info} ratings={ratings} comments={comments} />
-        <ReportPage2 info={info} ratings={ratings} proficientGrade={proficientGrade} studentLexile={studentLexile} notes={notes} />
+      {/* ═══ HIDDEN 4-PAGE PDF TEMPLATES ═══ */}
+      <div style={{ position: "fixed", left: -9999, top: 0, zIndex: -1, opacity: 1, pointerEvents: "none" }}>
+        <PDFPage1 info={info} ratings={ratings} comments={comments} />
+        <PDFPage2 info={info} ratings={ratings} comments={comments} />
+        <PDFPage3 info={info} ratings={ratings} proficientGrade={proficientGrade} studentLexile={studentLexile} />
+        <PDFPage4 info={info} proficientGrade={proficientGrade} notes={notes} />
       </div>
     </div>
   );
