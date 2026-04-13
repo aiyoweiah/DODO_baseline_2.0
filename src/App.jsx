@@ -30,7 +30,7 @@ const COMMENT_POOL = {
     0: "This area was not assessed during this session. 本次评估未涉及该项能力。",
     1: "Your child currently reads for facts — finding what is on the page. The Navigator's next work is training them to ask the first analytical question: not just what happened, but why. 孩子目前以获取事实为主。Navigator下一阶段的工作是训练孩子提出第一个分析性问题：不仅是发生了什么，而是为什么。",
     2: "Your child can follow a plot and identify key details. The Navigator is now building inference skills — the ability to read between the lines and use evidence from the text to support a claim. 孩子能跟上情节并识别关键细节。Navigator正引导孩子建立推断能力——学会从字里行间获取信息，并用文本证据支撑自己的观点。",
-    3: "Your child is moving from reading to understand, toward reading to think. They can summarize independently and are beginning to analyze character motivation and the choices an author makes. 孩子正从"读懂"向"深思"迈进。他们能独立概括内容，并开始分析角色动机和作者的写作选择。",
+    3: "Your child is moving from reading to understand, toward reading to think. They can summarize independently and are beginning to analyze character motivation and the choices an author makes. 孩子正从「读懂」向「深思」迈进。他们能独立概括内容，并开始分析角色动机和作者的写作选择。",
     4: "Your child reads analytically. They identify themes, recognize complexity in character or argument, and can defend a position with textual evidence. The Navigator is raising the level of thinking the text demands. 孩子具备分析性阅读能力。他们能识别主题、辨析文本深层复杂性，并用文本证据为自己的观点进行辩护。Navigator正持续提升文本所要求的思维深度。",
     5: "Your child reads like a critic. They examine how a text is constructed, question the author's choices, and synthesize meaning across multiple layers. This is the analytical standard DODO Learning's program is built to reach. 孩子以批评者的眼光审视文本——分析其构建方式、质疑作者的选择，并在多个层面综合把握含义。这正是都学书院课程致力于达到的分析标准。",
   },
@@ -61,7 +61,7 @@ const COMMENT_POOL = {
   pronunciation: {
     0: "This area was not assessed during this session. 本次评估未涉及该项能力。",
     1: "The goal at this stage is clarity, not accent. The Navigator targets the specific sounds that don't exist in the child's first language — training the physical habits of English pronunciation before they have a chance to solidify incorrectly. 这一阶段的目标是清晰表达，而非口音。Navigator专注于孩子母语中不存在的特定发音——在发音习惯固化之前建立正确的英语发音肌肉记忆。",
-    2: "Common words are clear. The Navigator is now targeting specific consonant clusters and vowel sounds with focused, repetitive practice — the kind of precision coaching that makes the difference between being understood and being effortlessly understood. 常用词发音清晰。Navigator正针对特定辅音组合和元音进行专项重复练习——这种精准指导决定了"能被理解"与"毫不费力地被理解"之间的差距。",
+    2: "Common words are clear. The Navigator is now targeting specific consonant clusters and vowel sounds with focused, repetitive practice — the kind of precision coaching that makes the difference between being understood and being effortlessly understood. 常用词发音清晰。Navigator正针对特定辅音组合和元音进行专项重复练习——这种精准指导决定了「能被理解」与「毫不费力地被理解」之间的差距。",
     3: "Your child is intelligible to most listeners. The Navigator is now working on sentence rhythm and stress patterns — because natural English is less about individual sounds and more about the rise and fall of a phrase. 大多数听众能清晰理解孩子的表达。Navigator正在训练句子节奏和重音规律——因为地道英语的关键不在于单个发音，而在于短语的起伏节奏。",
     4: "Your child speaks clearly with minimal errors. Pronunciation is no longer a barrier — it has become a tool. The Navigator is using this foundation to develop precise rhetorical emphasis: which words to stress to make an argument land. 孩子表达清晰，错误极少。发音不再是障碍，而是工具。Navigator正利用这一基础培养精准的修辞重音：强调哪些词才能让论点有力落地。",
     5: "Pronunciation is effortless and natural. Your child has mastered the linking, reduction, and intonation patterns that mark fluent English speech — and uses them to serve meaning, not just sound. 发音毫不费力，自然流畅。孩子掌握了流利英语口语的连读、弱读和语调规律——并将其用于服务意义，而非单纯追求音效。",
@@ -103,16 +103,16 @@ const COMMENT_POOL = {
     1: "Your child's writing lists events rather than building an argument. The Navigator's foundational work here is teaching that a paragraph is not a container for ideas, but a structure for moving a reader from one position to another. 孩子的写作目前以罗列事件为主，而非构建论证。Navigator在此进行的是基础工作：教导段落不是盛放想法的容器，而是引导读者从一个立场移向另一个立场的结构。",
     2: "Your child can write a beginning, middle, and end. The Navigator is now making the logic of those sections explicit — a strong opening claim, evidence and analysis in the middle, and a conclusion that earns its place rather than restating the introduction. 孩子能写出开头、中间和结尾。Navigator正在使这些部分的逻辑变得明确——有力的开篇论点、中间的证据与分析，以及通过论证赢得位置而非重复开头的结论。",
     3: "Organization is clear and purposeful. The Navigator is now working on transitions — not the mechanical 'first, next, finally' of early writing, but the logical signposting that guides a reader through a complex argument without losing the thread. 组织结构清晰有目的。Navigator正在打磨过渡——不是早期写作中机械的过渡词，而是引导读者穿越复杂论证的逻辑路标。",
-    4: "Your child structures writing with analytical intent — every section serves the argument. The Navigator is introducing the 6+1 Trait rubric's Organization criterion: not as a checklist, but as a framework for thinking about how structure serves meaning. 孩子以分析意图构建写作——每个部分都服务于论证。Navigator正在引入6+1特质评估体系的"组织"标准：不是作为清单，而是作为思考结构如何服务意义的框架。",
+    4: "Your child structures writing with analytical intent — every section serves the argument. The Navigator is introducing the 6+1 Trait rubric's Organization criterion: not as a checklist, but as a framework for thinking about how structure serves meaning. 孩子以分析意图构建写作——每个部分都服务于论证。Navigator正在引入6+1特质评估体系的「组织」标准：不是作为清单，而是作为思考结构如何服务意义的框架。",
     5: "Your child designs the architecture of their writing. They understand that how a text is organized is itself an argument — and make structural choices that earn a reader's trust before the content begins. 孩子能设计写作的整体架构。他们理解文本的组织方式本身就是一种论证——并做出在内容展开之前就赢得读者信任的结构性选择。",
   },
   creative: {
     0: "This area was not assessed during this session. 本次评估未涉及该项能力。",
     1: "Your child has ideas they want to express — the language is the bridge being built. The Navigator's role here is to meet the child's intention with the vocabulary and structure they need, building confidence without correcting the imagination. 孩子有想要表达的想法——语言是正在搭建的桥梁。Navigator在此的角色是用孩子所需的词汇和结构满足其表达意图，在不纠正想象力的前提下建立信心。",
-    2: "Your child is beginning to include personal observations and specific details. The Navigator is training the 'show, don't tell' instinct — the difference between 'it was scary' and describing exactly what made it so. 孩子开始加入个人观察和具体细节。Navigator正在培养"展示而非陈述"的直觉——"it was scary"与描述是什么让人感到恐惧之间的区别。",
-    3: "Your child is moving from describing to constructing. They use sensory detail purposefully and are developing what the 6+1 Trait rubric calls Voice — the quality that makes writing feel distinctly like this child, not like a template. 孩子正从描述转向构建。他们有目的地运用感官细节，并正在发展6+1特质评估体系所说的"声音"——使写作感觉明显属于这个孩子而非模板的品质。",
+    2: "Your child is beginning to include personal observations and specific details. The Navigator is training the 'show, don't tell' instinct — the difference between 'it was scary' and describing exactly what made it so. 孩子开始加入个人观察和具体细节。Navigator正在培养「展示而非陈述」的直觉——「it was scary」与描述是什么让人感到恐惧之间的区别。",
+    3: "Your child is moving from describing to constructing. They use sensory detail purposefully and are developing what the 6+1 Trait rubric calls Voice — the quality that makes writing feel distinctly like this child, not like a template. 孩子正从描述转向构建。他们有目的地运用感官细节，并正在发展6+1特质评估体系所说的「声音」——使写作感觉明显属于这个孩子而非模板的品质。",
     4: "Your child writes with a strong, recognizable voice and genuine creative investment. Ideas are original, imagery is specific, and word choice reveals a writer who is thinking, not just filling space. 孩子以鲜明可辨的声音和真实的创意投入写作。想法原创，意象具体，选词揭示出一位在思考而非仅仅填充空间的写作者。",
-    5: "Your child's creative writing demonstrates what the 6+1 Trait framework calls advanced Voice — language that surprises, takes risks, and shows a writer who has internalized that every word choice is also a thinking choice. 孩子的创意写作展示了6+1特质框架所称的高级"声音"——令人惊喜、敢于冒险的语言，展现出一位已将每次选词都视为思维选择的写作者。",
+    5: "Your child's creative writing demonstrates what the 6+1 Trait framework calls advanced Voice — language that surprises, takes risks, and shows a writer who has internalized that every word choice is also a thinking choice. 孩子的创意写作展示了6+1特质框架所称的高级「声音」——令人惊喜、敢于冒险的语言，展现出一位已将每次选词都视为思维选择的写作者。",
   },
 };
 
@@ -180,7 +180,7 @@ const BAND_12 = {
 const BAND_34 = {
   literacy: [
     { name: "Compare & Analyze", nameZh: "比较与分析", desc: "训练孩子识别人物、事件或观点之间的异同，培养分类与对比思维。这是从描述性阅读走向分析性阅读的关键转折。" },
-    { name: "Reading with Evidence", nameZh: "有据阅读", desc: "Navigator引导孩子学习用"文本中的哪里告诉了你这一点"来支撑自己的想法，建立以证据驱动理解的阅读习惯。" },
+    { name: "Reading with Evidence", nameZh: "有据阅读", desc: "Navigator引导孩子学习用「文本中的哪里告诉了你这一点」来支撑自己的想法，建立以证据驱动理解的阅读习惯。" },
     { name: "Word Architecture", nameZh: "词汇建筑", desc: "通过词根意识和语境推断，系统扩充词汇量。孩子开始理解词语不只是要记忆的标签，而是有内部逻辑的建筑。" },
   ],
   oral: [
@@ -190,7 +190,7 @@ const BAND_34 = {
   ],
   writing: [
     { name: "The Topic Sentence", nameZh: "主题句", desc: "教会孩子一个段落需要一个统领全局的核心句，其余内容都围绕它展开。这是从列举式写作走向论证性写作的第一步。" },
-    { name: "Show, Don't Tell", nameZh: "展示而非陈述", desc: "训练"it was exciting"和描述具体发生了什么之间的区别。Navigator通过感官细节训练，让孩子的描写从标签变成画面。" },
+    { name: "Show, Don't Tell", nameZh: "展示而非陈述", desc: "训练「it was exciting」和描述具体发生了什么之间的区别。Navigator通过感官细节训练，让孩子的描写从标签变成画面。" },
     { name: "Sentence Variety", nameZh: "句式多样性", desc: "通过合并、拆分和连接不同长度的句子，训练孩子有意识地控制写作的节奏。避免单一句式是写作进阶的关键信号。" },
   ],
 };
@@ -206,7 +206,7 @@ const BAND_56 = {
     { name: "Restate & Extend", nameZh: "复述与延伸", desc: "教会孩子用自己的语言准确复述复杂信息，并在此基础上提出延伸问题。这是证明真正理解而非机械模仿的标志。" },
   ],
   writing: [
-    { name: "Logical Transitions", nameZh: "逻辑过渡", desc: "系统训练使用"however, therefore, in contrast"等过渡词，建立段落间的逻辑链接。Navigator引导孩子用结构引导读者，而非让读者自行摸索。" },
+    { name: "Logical Transitions", nameZh: "逻辑过渡", desc: "系统训练使用「however, therefore, in contrast」等过渡词，建立段落间的逻辑链接。Navigator引导孩子用结构引导读者，而非让读者自行摸索。" },
     { name: "Evidence & Argument", nameZh: "证据与论证", desc: "引入论证性写作的核心结构：论点—证据—分析。孩子开始学习如何不只是陈述立场，而是通过具体证据为立场建立支撑。" },
     { name: "Grammar as Craft", nameZh: "语法即技艺", desc: "重点解决时态混用和主谓一致问题，同时引导孩子理解：语法不是规则的束缚，而是精准表达的工具。" },
   ],
@@ -281,11 +281,11 @@ const CURRICULUM = [
   },
   {
     pillar: "Oral Proficiency & Fluency", pillarZh: "口语&流利度", color: B.green, lightColor: B.greenLight,
-    match: "语言是思维的外壳。DODO Learning的口语课程不以流利度为终点——流利度是结果。Navigator设计的每一个口语任务都指向一个更高的目标：让孩子学会不只是"说出来"，而是"论证出来"。通过朗读、叙事构建和结构化讨论，孩子逐步建立在北美学术和社交环境中真正需要的表达能力——能够提出立场、支撑理由，并在对话中回应挑战。Navigator的第一个动作永远是一个更好的问题，而非一个评价。",
+    match: "语言是思维的外壳。DODO Learning的口语课程不以流利度为终点——流利度是结果。Navigator设计的每一个口语任务都指向一个更高的目标：让孩子学会不只是「说出来」，而是「论证出来」。通过朗读、叙事构建和结构化讨论，孩子逐步建立在北美学术和社交环境中真正需要的表达能力——能够提出立场、支撑理由，并在对话中回应挑战。Navigator的第一个动作永远是一个更好的问题，而非一个评价。",
     modules: [
       { name: "Speaking Lab", nameZh: "口语实验室", desc: "围绕真实情境设计的口语任务，训练孩子在不同语境下呈现立场并支撑观点。流利度在这里是工具，而非目标。" },
       { name: "Pronunciation Lab", nameZh: "发音实验室", desc: "针对高频发音难点进行专项精准训练，结合即时反馈，建立自然地道的英语语音节律。" },
-      { name: "Analytical Listening", nameZh: "分析性聆听", desc: "通过精选音视频材料训练孩子不只是"听懂"，而是识别论点结构、语气转变和说话者的修辞意图。" },
+      { name: "Analytical Listening", nameZh: "分析性聆听", desc: "通过精选音视频材料训练孩子不只是「听懂」，而是识别论点结构、语气转变和说话者的修辞意图。" },
     ],
   },
   {
