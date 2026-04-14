@@ -452,15 +452,31 @@ function CurriculumSection({ item, proficientGrade }) {
 // 4 PDF PAGE TEMPLATES
 // ═══════════════════════════════════════════════════════════════════════
 
+// ─── PDF FOOTER ─────────────────────────────────────────────────────────────
+function PDFFooter() {
+  return (
+    <div style={{
+      position: "absolute", bottom: 0, left: 0, right: 0, height: 44,
+      display: "flex", alignItems: "center", justifyContent: "space-between",
+      padding: `0 ${PAD}px`, borderTop: `1px solid ${B.border}`,
+      background: B.cream, fontFamily: F,
+    }}>
+      <span style={{ fontSize: 8, color: B.muted, letterSpacing: 0.2 }}>www.dodolearning.com</span>
+      <span style={{ fontSize: 8.5, fontWeight: 700, color: B.lavender, letterSpacing: 1.5, textTransform: "uppercase" }}>Think Once. In Both Languages.</span>
+      <span style={{ fontSize: 8, color: B.muted, letterSpacing: 0.2 }}>www.dodoletterhouse.com</span>
+    </div>
+  );
+}
+
 // PAGE 1: Header + Student Info + Literacy
 function PDFPage1({ info, ratings, comments }) {
   const allSkills = PILLARS.flatMap(p => p.skills);
   const ratedCount = Object.keys(ratings).filter(k => ratings[k] !== undefined && ratings[k] !== null).length;
   return (
-    <div id="pdf-p1" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden" }}>
+    <div id="pdf-p1" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden", position: "relative" }}>
       <PDFHeader info={info} />
-      <div style={{ padding: `14px ${PAD}px ${PAD}px`, display: "flex", flexDirection: "column", height: PH - 85 }}>
-        {/* Student Info — takes up available space with flex-grow */}
+      <div style={{ padding: `14px ${PAD}px 0`, display: "flex", flexDirection: "column", height: PH - 85 - 44 }}>
+        {/* Student Info */}
         <div style={{ background: B.white, borderRadius: 8, padding: "16px 16px 20px", marginBottom: 14, border: `1px solid ${B.border}`, flexShrink: 0 }}>
           <div style={{ marginBottom: 10, paddingBottom: 6, borderBottom: `1px solid ${B.border}` }}>
             <span style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: B.lavender, fontWeight: 700 }}>Student Information </span>
@@ -477,7 +493,6 @@ function PDFPage1({ info, ratings, comments }) {
           </div>
         </div>
 
-        {/* Gap — same height as header */}
         <div style={{ height: GAP_H, flexShrink: 0 }} />
 
         {/* Literacy Table */}
@@ -488,30 +503,44 @@ function PDFPage1({ info, ratings, comments }) {
           </div>
         </div>
       </div>
+      <PDFFooter />
     </div>
   );
 }
 
-// PAGE 2: Header + Oral + Writing
+// PAGE 2: Header + Speaking & Discussion
 function PDFPage2({ info, ratings, comments }) {
   return (
-    <div id="pdf-p2" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden" }}>
+    <div id="pdf-p2" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden", position: "relative" }}>
       <PDFHeader info={info} />
-      <div style={{ padding: `14px ${PAD}px ${PAD}px`, display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ padding: `14px ${PAD}px 0`, paddingBottom: 52 }}>
         <PillarTable pillar={PILLARS[1]} ratings={ratings} comments={comments} />
-        <PillarTable pillar={PILLARS[2]} ratings={ratings} comments={comments} />
       </div>
+      <PDFFooter />
     </div>
   );
 }
 
-// PAGE 3: Header + Consultation Overview + Summary + Literacy Curriculum
+// PAGE 3: Header + Language Craft & Writing
+function PDFPage2b({ info, ratings, comments }) {
+  return (
+    <div id="pdf-p2b" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden", position: "relative" }}>
+      <PDFHeader info={info} />
+      <div style={{ padding: `14px ${PAD}px 0`, paddingBottom: 52 }}>
+        <PillarTable pillar={PILLARS[2]} ratings={ratings} comments={comments} />
+      </div>
+      <PDFFooter />
+    </div>
+  );
+}
+
+// PAGE 4: Header + Consultation Overview + Summary + Literacy Curriculum
 function PDFPage3({ info, ratings, proficientGrade, studentLexile }) {
   const selectedGradeObj = GRADE_LEXILE.find(g => g.grade === proficientGrade);
   return (
-    <div id="pdf-p3" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden" }}>
+    <div id="pdf-p3" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden", position: "relative" }}>
       <PDFHeader info={info} />
-      <div style={{ padding: `14px ${PAD}px ${PAD}px`, display: "flex", flexDirection: "column" }}>
+      <div style={{ padding: `14px ${PAD}px 0`, paddingBottom: 52, display: "flex", flexDirection: "column" }}>
         {/* Consultation Title */}
         <div style={{ textAlign: "center", marginBottom: 12 }}>
           <div style={{ fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: B.muted, marginBottom: 5 }}>Consultation Overview · 咨询概述</div>
@@ -573,16 +602,17 @@ function PDFPage3({ info, ratings, proficientGrade, studentLexile }) {
         {/* Literacy Curriculum */}
         <CurriculumSection item={CURRICULUM[0]} proficientGrade={proficientGrade} />
       </div>
+      <PDFFooter />
     </div>
   );
 }
 
-// PAGE 4: Header + Oral Curriculum + Writing Curriculum + Notes
+// PAGE 5: Header + Oral Curriculum + Writing Curriculum + Notes
 function PDFPage4({ info, proficientGrade, notes }) {
   return (
-    <div id="pdf-p4" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden" }}>
+    <div id="pdf-p4" style={{ width: PW, height: PH, background: B.cream, fontFamily: F, color: B.ink, boxSizing: "border-box", overflow: "hidden", position: "relative" }}>
       <PDFHeader info={info} />
-      <div style={{ padding: `14px ${PAD}px ${PAD}px`, display: "flex", flexDirection: "column", gap: 0 }}>
+      <div style={{ padding: `14px ${PAD}px 0`, paddingBottom: 52, display: "flex", flexDirection: "column", gap: 0 }}>
         <CurriculumSection item={CURRICULUM[1]} proficientGrade={proficientGrade} />
         {/* Gap — after Oral Proficiency & Fluency */}
         <div style={{ height: GAP_H }} />
@@ -601,6 +631,7 @@ function PDFPage4({ info, proficientGrade, notes }) {
           </div>
         )}
       </div>
+      <PDFFooter />
     </div>
   );
 }
@@ -680,9 +711,9 @@ export default function DodoEvalPDF() {
       const pdf = new jsPDF("p", "mm", "a4");
       const pageW = 210, pageH = 297;
 
-      const pages = ["pdf-p1", "pdf-p2", "pdf-p3", "pdf-p4"];
+      const pages = ["pdf-p1", "pdf-p2", "pdf-p2b", "pdf-p3", "pdf-p4"];
       for (let i = 0; i < pages.length; i++) {
-        setStatus(`Capturing page ${i + 1} of 4…`);
+        setStatus(`Capturing page ${i + 1} of 5…`);
         const canvas = await capture(pages[i]);
         if (i > 0) pdf.addPage();
         const imgW = pageW;
@@ -844,10 +875,11 @@ export default function DodoEvalPDF() {
         </div>
       </div>
 
-      {/* ═══ HIDDEN 4-PAGE PDF TEMPLATES ═══ */}
+      {/* ═══ HIDDEN 5-PAGE PDF TEMPLATES ═══ */}
       <div style={{ position: "fixed", left: -9999, top: 0, zIndex: -1, opacity: 1, pointerEvents: "none" }}>
         <PDFPage1 info={info} ratings={ratings} comments={comments} />
         <PDFPage2 info={info} ratings={ratings} comments={comments} />
+        <PDFPage2b info={info} ratings={ratings} comments={comments} />
         <PDFPage3 info={info} ratings={ratings} proficientGrade={proficientGrade} studentLexile={studentLexile} />
         <PDFPage4 info={info} proficientGrade={proficientGrade} notes={notes} />
       </div>
