@@ -10,10 +10,32 @@ import html2canvas from "html2canvas";
 import { LOGO_B64 } from "./assets/logo";
 
 // ─── BRAND ──────────────────────────────────────────────────────────────
+// DODO Learning brand palette — Version 2.1
 const B = {
-  cream: "#f5e8d7", green: "#6b8e75", greenDark: "#4f6b58", greenLight: "#e8f0eb",
-  brown: "#7a5145", brownDark: "#5c3c33", brownLight: "#f0e3dc",
-  ink: "#2a1f1a", muted: "#8a7a72", border: "#e2d5c8", white: "#fffdf9",
+  cream:      "#F5F5FF",   // Whisper — page & PDF background
+  white:      "#FFFFFF",   // Card surfaces
+  ink:        "#212830",   // Deep Void — body text on light
+  voidBlack:  "#0E0E12",   // Void Black — deepest emphasis
+  muted:      "#5E6879",   // Mid-tone secondary text (derived from Deep Void)
+  border:     "#DCDCF5",   // Soft lavender-tinted border
+  platinum:   "#F0F0F0",   // Platinum — light text on dark surfaces
+  gilt:       "#F5C842",   // Gilt — CTA color ONLY
+
+  // Pillar accent colors
+  lavender:      "#B7B5FE", // Lavender Signal — Literacy pillar / primary accent
+  lavenderLight: "#EEEEFF", // Lavender light surface
+  softGreen:     "#7EC8A0", // Soft Green — Oral pillar
+  softGreenLight:"#E6F6EE", // Soft Green light surface
+  midnight:      "#2E3848", // Midnight — Writing pillar
+  midnightLight: "#E8EAF0", // Midnight light surface
+
+  // Legacy aliases used throughout (mapped to brand palette)
+  green:      "#7EC8A0",   // Soft Green (oral)
+  greenDark:  "#5AAA82",   // Soft Green dark
+  greenLight: "#E6F6EE",   // Soft Green light
+  brown:      "#B7B5FE",   // → Lavender Signal (literacy)
+  brownDark:  "#2E3848",   // → Midnight (writing)
+  brownLight: "#EEEEFF",   // → Lavender light
 };
 
 // ─── COMMENT POOLS ──────────────────────────────────────────────────────
@@ -118,18 +140,18 @@ const COMMENT_POOL = {
 
 const RATING_LABELS = { 0: "Did Not Test", 1: "Beginning", 2: "Developing", 3: "Approaching", 4: "Proficient", 5: "Advanced" };
 const RATING_COLORS = {
-  0: { bg: "#f0ece8", text: "#8a7a72", dot: "#b0a090" },
-  1: { bg: "#fde8e8", text: "#7a2020", dot: "#c0504d" },
-  2: { bg: "#fef3e2", text: "#7a4f10", dot: "#d4874e" },
-  3: { bg: "#e8f0eb", text: "#3a5c45", dot: "#6b8e75" },
-  4: { bg: "#e8eeea", text: "#2e5040", dot: "#4f7a60" },
-  5: { bg: "#f0e3dc", text: "#7a5145", dot: "#a0695a" },
+  0: { bg: "#EEEEFF", text: "#5E6879", dot: "#B7B5FE" },    // lavender — Did Not Test
+  1: { bg: "#fde8e8", text: "#7a2020", dot: "#c0504d" },    // red — Beginning
+  2: { bg: "#fef3e2", text: "#7a4f10", dot: "#d4874e" },    // orange — Developing
+  3: { bg: "#E6F6EE", text: "#1A4D35", dot: "#7EC8A0" },    // soft green — Approaching
+  4: { bg: "#D4EEDF", text: "#14392A", dot: "#5AAA82" },    // deeper green — Proficient
+  5: { bg: "#EBEBFF", text: "#3535A0", dot: "#B7B5FE" },    // lavender — Advanced
 };
 
 const PILLARS = [
   {
     id: "literacy", label: "Literacy", labelZh: "阅读理解",
-    color: B.brown, lightColor: B.brownLight,
+    color: B.lavender, lightColor: B.lavenderLight, headerTextColor: B.voidBlack,
     skills: [
       { id: "phonics", label: "Phonics & Decoding", labelZh: "自然拼读与解码" },
       { id: "comprehension", label: "Reading Comprehension", labelZh: "阅读理解" },
@@ -139,7 +161,7 @@ const PILLARS = [
   },
   {
     id: "oral", label: "Oral Proficiency & Fluency", labelZh: "口语&流利度",
-    color: B.green, lightColor: B.greenLight,
+    color: B.softGreen, lightColor: B.softGreenLight, headerTextColor: B.voidBlack,
     skills: [
       { id: "speaking", label: "Speaking Confidence", labelZh: "口语自信心" },
       { id: "pronunciation", label: "Pronunciation & Clarity", labelZh: "发音与清晰度" },
@@ -149,7 +171,7 @@ const PILLARS = [
   },
   {
     id: "writing", label: "Writing & Composition", labelZh: "构思&写作",
-    color: B.brownDark, lightColor: "#ede0d8",
+    color: B.midnight, lightColor: B.midnightLight, headerTextColor: B.platinum,
     skills: [
       { id: "sentences", label: "Sentence Structure", labelZh: "句子结构" },
       { id: "grammar", label: "Grammar & Mechanics", labelZh: "语法与写作规范" },
@@ -271,7 +293,7 @@ const PILLAR_GRADE_KEY = { "Literacy": "literacy", "Oral Proficiency & Fluency":
 
 const CURRICULUM = [
   {
-    pillar: "Literacy", pillarZh: "阅读理解", color: B.brown, lightColor: B.brownLight,
+    pillar: "Literacy", pillarZh: "阅读理解", color: B.lavender, lightColor: B.lavenderLight, headerTextColor: B.voidBlack,
     match: "每一位孩子进入DODO Learning课程时，都先通过Lexile分级评估确定当前阅读水平。Navigator的工作从这个数字开始——不是赶进度，而是通过系统训练让孩子的认知带宽真正释放出来。以MCT经典文学文本为核心素材，结合Harvard Project Zero的思维训练框架，确保孩子不只是读懂了文字，而是学会了如何对文本提问、推断，并用证据支撑自己的解读。坚持参与课程的学生通常能在16周内实现一至两个Lexile等级的突破。",
     modules: [
       { name: "The Decoding Foundation", nameZh: "解码基础", desc: "Navigator使用可解码文本系统训练对英语拼音规律的掌握，将大脑从辨词任务中解放，为高阶阅读理解释放认知资源。" },
@@ -280,7 +302,7 @@ const CURRICULUM = [
     ],
   },
   {
-    pillar: "Oral Proficiency & Fluency", pillarZh: "口语&流利度", color: B.green, lightColor: B.greenLight,
+    pillar: "Oral Proficiency & Fluency", pillarZh: "口语&流利度", color: B.softGreen, lightColor: B.softGreenLight, headerTextColor: B.voidBlack,
     match: "语言是思维的外壳。DODO Learning的口语课程不以流利度为终点——流利度是结果。Navigator设计的每一个口语任务都指向一个更高的目标：让孩子学会不只是「说出来」，而是「论证出来」。通过朗读、叙事构建和结构化讨论，孩子逐步建立在北美学术和社交环境中真正需要的表达能力——能够提出立场、支撑理由，并在对话中回应挑战。Navigator的第一个动作永远是一个更好的问题，而非一个评价。",
     modules: [
       { name: "Speaking Lab", nameZh: "口语实验室", desc: "围绕真实情境设计的口语任务，训练孩子在不同语境下呈现立场并支撑观点。流利度在这里是工具，而非目标。" },
@@ -289,7 +311,7 @@ const CURRICULUM = [
     ],
   },
   {
-    pillar: "Writing & Composition", pillarZh: "构思&写作", color: B.brownDark, lightColor: "#ede0d8",
+    pillar: "Writing & Composition", pillarZh: "构思&写作", color: B.midnight, lightColor: B.midnightLight, headerTextColor: B.platinum,
     match: "DODO Learning将写作视为思维的最终检验。一个孩子写了什么，揭示了他们对文本思考了多深。我们的写作课程以6+1特质评估体系为评量标准，以MCT的语法与语言艺术框架为教学基础，通过Navigator的逐步引导，帮助孩子从能写正确的句子，发展为能用精准语言构建有力论证的写作者。写作能力在都学书院的课程体系中，是认知发展的可见证明。",
     modules: [
       { name: "The Grammar Foundation", nameZh: "语法基础", desc: "以MCT语法框架为核心，通过四级句子分析让孩子理解每个词在句子中存在的原因——将语法从规则记忆转化为写作工具。" },
@@ -321,7 +343,7 @@ const GRADE_LEXILE = [
 // PDF TEMPLATE COMPONENTS (hidden off-screen, captured by html2canvas)
 // ═══════════════════════════════════════════════════════════════════════
 
-const F = '"Noto Sans SC", "Avenir Next", "Avenir", "Helvetica Neue", sans-serif';
+const F = '"DM Sans", "Noto Sans SC", sans-serif';
 // A4 at 96dpi = 794 x 1123px. We render at this size, html2canvas captures at 2x.
 const PW = 794;
 const PH = 1123;
@@ -331,10 +353,10 @@ const GAP_H = 73; // Spacer height — matches header visual height
 
 function PDFHeader({ info }) {
   return (
-    <div style={{ background: B.cream, padding: `18px ${PAD}px 12px`, borderBottom: `3px solid ${B.green}` }}>
+    <div style={{ background: B.cream, padding: `18px ${PAD}px 12px`, borderBottom: `3px solid ${B.lavender}` }}>
       <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
         <img src={LOGO_B64} alt="DODO" style={{ height: 40, width: "auto" }} />
-        <div style={{ borderLeft: `1.5px solid rgba(122,81,69,0.25)`, paddingLeft: 14 }}>
+        <div style={{ borderLeft: `1.5px solid rgba(183,181,254,0.45)`, paddingLeft: 14 }}>
           <div style={{ fontSize: 10, letterSpacing: 3, textTransform: "uppercase", opacity: 0.65, fontFamily: F, fontWeight: 500 }}>DODO Learning · 都学书院</div>
           <div style={{ fontSize: 16, fontWeight: 700, fontFamily: F, marginTop: 1 }}>
             Student Baseline Report
@@ -353,7 +375,7 @@ function PDFHeader({ info }) {
 function PillarTable({ pillar, ratings, comments }) {
   return (
     <div style={{ background: B.white, borderRadius: 8, overflow: "hidden", border: `1px solid ${B.border}` }}>
-      <div style={{ background: pillar.color, color: B.cream, padding: "6px 14px" }}>
+      <div style={{ background: pillar.color, color: pillar.headerTextColor || B.platinum, padding: "6px 14px" }}>
         <div style={{ fontSize: 8, letterSpacing: 2, textTransform: "uppercase", opacity: 0.6, marginBottom: 1 }}>Pillar · 核心领域</div>
         <div style={{ fontSize: 13, fontWeight: 700 }}>{pillar.label}</div>
         <div style={{ fontSize: 10, opacity: 0.8 }}>{pillar.labelZh}</div>
@@ -400,7 +422,7 @@ function PillarTable({ pillar, ratings, comments }) {
 function CurriculumSection({ item, proficientGrade }) {
   return (
     <div style={{ background: B.white, borderRadius: 8, overflow: "hidden", border: `1px solid ${B.border}` }}>
-      <div style={{ background: item.color, color: B.cream, padding: "6px 14px" }}>
+      <div style={{ background: item.color, color: item.headerTextColor || B.platinum, padding: "6px 14px" }}>
         <div style={{ fontSize: 8, letterSpacing: 2, textTransform: "uppercase", opacity: 0.6, marginBottom: 1 }}>Pillar · 核心领域</div>
         <div style={{ fontSize: 12, fontWeight: 700 }}>{item.pillar}</div>
         <div style={{ fontSize: 10, opacity: 0.72, marginTop: 1 }}>{item.pillarZh}</div>
@@ -442,7 +464,7 @@ function PDFPage1({ info, ratings, comments }) {
         {/* Student Info — takes up available space with flex-grow */}
         <div style={{ background: B.white, borderRadius: 8, padding: "16px 16px 20px", marginBottom: 14, border: `1px solid ${B.border}`, flexShrink: 0 }}>
           <div style={{ marginBottom: 10, paddingBottom: 6, borderBottom: `1px solid ${B.border}` }}>
-            <span style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: B.brown, fontWeight: 700 }}>Student Information </span>
+            <span style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: B.lavender, fontWeight: 700 }}>Student Information </span>
             <span style={{ fontSize: 11, color: B.muted }}>学生信息</span>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12, rowGap: 16 }}>
@@ -462,7 +484,7 @@ function PDFPage1({ info, ratings, comments }) {
         {/* Literacy Table */}
         <div style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
           <PillarTable pillar={PILLARS[0]} ratings={ratings} comments={comments} />
-          <div style={{ background: B.brown, borderRadius: 6, padding: "6px 14px", color: B.cream, textAlign: "center", marginTop: 10 }}>
+          <div style={{ background: B.lavender, borderRadius: 6, padding: "6px 14px", color: B.voidBlack, textAlign: "center", marginTop: 10 }}>
             <div style={{ fontSize: 10 }}>{ratedCount} of {allSkills.length} skills rated · 已评估 {ratedCount}/{allSkills.length} 项</div>
           </div>
         </div>
@@ -494,8 +516,8 @@ function PDFPage3({ info, ratings, proficientGrade, studentLexile }) {
         {/* Consultation Title */}
         <div style={{ textAlign: "center", marginBottom: 12 }}>
           <div style={{ fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: B.muted, marginBottom: 5 }}>Consultation Overview · 咨询概述</div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: B.brown, fontFamily: F }}>
-            「<span style={{ color: B.green }}>{info.name || "学生"}</span>」的个人化英语需求
+          <div style={{ fontSize: 18, fontWeight: 700, color: B.ink, fontFamily: F }}>
+            「<span style={{ color: B.lavender }}>{info.name || "学生"}</span>」的个人化英语需求
           </div>
           <div style={{ marginTop: 4, color: B.muted, fontSize: 10, lineHeight: 1.5 }}>
             第一页的每一项评估结果，都直接对应DODO Learning的具体课程模块。以下将详细说明我们为您的孩子推荐的学习方向及长期的益处。
@@ -504,15 +526,15 @@ function PDFPage3({ info, ratings, proficientGrade, studentLexile }) {
 
         {/* Lexile Boxes — taller to fill space */}
         <div style={{ display: "flex", gap: 12, justifyContent: "center", marginBottom: 14 }}>
-          <div style={{ background: B.greenLight, border: `1.5px solid ${B.border}`, borderRadius: 10, padding: "14px 22px", textAlign: "center", minWidth: 160 }}>
-            <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: B.green, marginBottom: 6, fontWeight: 700 }}>Proficient Lexile Level</div>
-            <div style={{ fontSize: 18, fontWeight: 800, color: B.green }}>{selectedGradeObj ? `Lexile ${selectedGradeObj.lexile}` : "—"}</div>
-            {selectedGradeObj && <div style={{ fontSize: 12, color: B.green, fontWeight: 700, marginTop: 4 }}>{selectedGradeObj.grade}</div>}
+          <div style={{ background: B.softGreenLight, border: `1.5px solid ${B.border}`, borderRadius: 10, padding: "14px 22px", textAlign: "center", minWidth: 160 }}>
+            <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: B.softGreen, marginBottom: 6, fontWeight: 700 }}>Proficient Lexile Level</div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: B.softGreen }}>{selectedGradeObj ? `Lexile ${selectedGradeObj.lexile}` : "—"}</div>
+            {selectedGradeObj && <div style={{ fontSize: 12, color: B.softGreen, fontWeight: 700, marginTop: 4 }}>{selectedGradeObj.grade}</div>}
           </div>
-          <div style={{ background: B.brownLight, border: `1.5px solid ${B.border}`, borderRadius: 10, padding: "14px 22px", textAlign: "center", minWidth: 160 }}>
-            <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: B.brown, marginBottom: 6, fontWeight: 700 }}>Student Lexile Level</div>
-            <div style={{ fontSize: 18, fontWeight: 800, color: B.brown }}>{studentLexile || "—"}</div>
-            <div style={{ fontSize: 12, color: B.brown, fontWeight: 700, marginTop: 4 }}>Current level</div>
+          <div style={{ background: B.lavenderLight, border: `1.5px solid ${B.border}`, borderRadius: 10, padding: "14px 22px", textAlign: "center", minWidth: 160 }}>
+            <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: B.lavender, marginBottom: 6, fontWeight: 700 }}>Student Lexile Level</div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: B.lavender }}>{studentLexile || "—"}</div>
+            <div style={{ fontSize: 12, color: B.lavender, fontWeight: 700, marginTop: 4 }}>Current level</div>
           </div>
         </div>
 
@@ -520,7 +542,7 @@ function PDFPage3({ info, ratings, proficientGrade, studentLexile }) {
         <div style={{ height: GAP_H }} />
 
         {/* Summary */}
-        <div style={{ fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: B.brown, fontWeight: 700, marginBottom: 8 }}>Summary · 各核心领域总结</div>
+        <div style={{ fontSize: 10, letterSpacing: 2, textTransform: "uppercase", color: B.ink, fontWeight: 700, marginBottom: 8 }}>Summary · 各核心领域总结</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, marginBottom: 14 }}>
           {PILLARS.map(pillar => {
             const scored = pillar.skills.filter(s => ratings[s.id] !== undefined && ratings[s.id] !== null && ratings[s.id] > 0);
@@ -529,11 +551,11 @@ function PDFPage3({ info, ratings, proficientGrade, studentLexile }) {
             const rc = rounded ? RATING_COLORS[rounded] : null;
             return (
               <div key={pillar.id} style={{ borderRadius: 10, overflow: "hidden", border: `1px solid ${B.border}` }}>
-                <div style={{ background: B.green, color: B.cream, padding: "6px 10px", textAlign: "center" }}>
+                <div style={{ background: pillar.color, color: pillar.headerTextColor || B.platinum, padding: "6px 10px", textAlign: "center" }}>
                   <div style={{ fontSize: 12, fontWeight: 700 }}>{pillar.label}</div>
                   <div style={{ fontSize: 10, opacity: 0.72, marginTop: 1 }}>{pillar.labelZh}</div>
                 </div>
-                <div style={{ background: B.greenLight, padding: "8px 10px", textAlign: "center" }}>
+                <div style={{ background: pillar.lightColor, padding: "8px 10px", textAlign: "center" }}>
                   <div style={{ fontSize: 9, color: B.muted, marginBottom: 5, textTransform: "uppercase", letterSpacing: 1 }}>平均等级</div>
                   {rounded ? (
                     <div style={{ display: "inline-block", padding: "4px 14px", background: rc.bg, color: rc.text, borderRadius: 16, fontSize: 12, fontWeight: 700 }}>
@@ -573,7 +595,7 @@ function PDFPage4({ info, proficientGrade, notes }) {
         {notes && (
           <div style={{ background: B.white, borderRadius: 8, padding: 14, border: `1px solid ${B.border}` }}>
             <div style={{ marginBottom: 6 }}>
-              <span style={{ fontSize: 12, fontWeight: 700, color: B.brown }}>Evaluator's Notes </span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: B.lavender }}>Evaluator's Notes </span>
               <span style={{ fontSize: 11, color: B.muted }}>评估师备注</span>
             </div>
             <div style={{ fontSize: 11, lineHeight: 1.7, color: B.ink, whiteSpace: "pre-wrap" }}>{notes}</div>
@@ -603,7 +625,7 @@ export default function DodoEvalPDF() {
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&display=swap";
+    link.href = "https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap";
     document.head.appendChild(link);
     document.fonts.ready.then(() => setFontsReady(true));
   }, []);
@@ -664,21 +686,21 @@ export default function DodoEvalPDF() {
   const lbl = { fontSize: 10, letterSpacing: 1, textTransform: "uppercase", color: B.muted, fontWeight: 700, marginBottom: 4, display: "block" };
 
   return (
-    <div style={{ fontFamily: '"Noto Sans SC", "Avenir Next", sans-serif', minHeight: "100vh", background: "#f0ece8" }}>
+    <div style={{ fontFamily: '"DM Sans", "Noto Sans SC", sans-serif', minHeight: "100vh", background: B.cream }}>
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px 80px" }}>
 
         {/* Form Header */}
-        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 24, paddingBottom: 16, borderBottom: `2px solid ${B.green}` }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 24, paddingBottom: 16, borderBottom: `2px solid ${B.lavender}` }}>
           <img src={LOGO_B64} alt="DODO" style={{ height: 40 }} />
           <div>
             <div style={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: B.muted }}>DODO Learning</div>
-            <div style={{ fontSize: 20, fontWeight: 700, color: B.brown }}>Student Report Generator</div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: B.ink }}>Student Report Generator</div>
           </div>
         </div>
 
         {/* Student Info */}
         <div style={{ background: B.white, borderRadius: 10, padding: 18, marginBottom: 16, border: `1px solid ${B.border}` }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: B.brown, textTransform: "uppercase", letterSpacing: 2, marginBottom: 12 }}>Student Information 学生信息</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: B.ink, textTransform: "uppercase", letterSpacing: 2, marginBottom: 12 }}>Student Information 学生信息</div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12 }}>
             {[["name", "Student Name 学生姓名", "text"], ["age", "Age 年龄", "number"], ["grade", "Grade / Year 年级", "text"],
               ["evaluator", "Evaluator 评估师", "text"]].map(([k, label, type]) => (
@@ -703,7 +725,7 @@ export default function DodoEvalPDF() {
         {/* Skill Ratings — ALL LEFT ALIGNED */}
         {PILLARS.map(pillar => (
           <div key={pillar.id} style={{ background: B.white, borderRadius: 10, marginBottom: 16, overflow: "hidden", border: `1px solid ${B.border}` }}>
-            <div style={{ background: pillar.color, color: B.cream, padding: "10px 18px" }}>
+            <div style={{ background: pillar.color, color: pillar.headerTextColor || B.platinum, padding: "10px 18px" }}>
               <div style={{ fontSize: 14, fontWeight: 700 }}>{pillar.label}</div>
               <div style={{ fontSize: 11, opacity: 0.8 }}>{pillar.labelZh}</div>
             </div>
@@ -759,7 +781,7 @@ export default function DodoEvalPDF() {
 
         {/* Consultation Settings */}
         <div style={{ background: B.white, borderRadius: 10, padding: 18, marginBottom: 16, border: `1px solid ${B.border}` }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: B.brown, textTransform: "uppercase", letterSpacing: 2, marginBottom: 12 }}>Consultation Settings 咨询设置</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: B.ink, textTransform: "uppercase", letterSpacing: 2, marginBottom: 12 }}>Consultation Settings 咨询设置</div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
             <label style={{ display: "flex", flexDirection: "column" }}>
               <span style={lbl}>Proficient Lexile Level</span>
@@ -777,7 +799,7 @@ export default function DodoEvalPDF() {
 
         {/* Evaluator Notes */}
         <div style={{ background: B.white, borderRadius: 10, padding: 18, marginBottom: 20, border: `1px solid ${B.border}` }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: B.brown, textTransform: "uppercase", letterSpacing: 2, marginBottom: 8 }}>Evaluator's Notes 评估师备注</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: B.ink, textTransform: "uppercase", letterSpacing: 2, marginBottom: 8 }}>Evaluator's Notes 评估师备注</div>
           <textarea
             value={notes} onChange={e => setNotes(e.target.value)} rows={5}
             placeholder="Add personalized notes, next steps, or parent communication points…"
@@ -791,15 +813,15 @@ export default function DodoEvalPDF() {
             onClick={generatePDF}
             disabled={generating || !fontsReady}
             style={{
-              padding: "14px 36px", background: generating ? B.muted : B.brown, color: B.cream,
+              padding: "14px 36px", background: generating ? B.muted : B.gilt, color: generating ? B.cream : B.voidBlack,
               border: "none", borderRadius: 10, fontSize: 16, fontWeight: 700, fontFamily: "inherit",
-              cursor: generating ? "wait" : "pointer", boxShadow: "0 3px 12px rgba(0,0,0,0.2)",
+              cursor: generating ? "wait" : "pointer", boxShadow: "0 3px 12px rgba(0,0,0,0.15)",
               opacity: fontsReady ? 1 : 0.5, transition: "all 0.2s",
             }}
           >
             {!fontsReady ? "Loading fonts…" : generating ? "⏳ Generating…" : "📄 Generate PDF Report"}
           </button>
-          {status && <span style={{ fontSize: 13, color: status.startsWith("✓") ? B.green : status.startsWith("Error") ? "#c0504d" : B.muted }}>{status}</span>}
+          {status && <span style={{ fontSize: 13, color: status.startsWith("✓") ? B.softGreen : status.startsWith("Error") ? "#c0504d" : B.muted }}>{status}</span>}
         </div>
       </div>
 
